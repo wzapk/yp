@@ -1,0 +1,35 @@
+<?php
+return [
+	// 数据表字段翻译
+	'ID' => '数据ID',
+	'Serial No' => '编号',
+	'Name' => '分部名称',
+	'Location' => '所在城市',
+	'Manager' => '负责人',
+	'Business Scope' => '教学范围',
+	'Address' => '详细地址',
+	'Phone' => '联系电话',
+	'Social' => '社会化联系方式',
+	'QQ' => 'QQ',
+	'Weibo' => '微博',
+	'Weixin' => '微信',
+	'Taobao' => '淘宝店',
+	'Homepage' => '个人主页',
+	'Remark' => '备注',
+	'City' => '城市',
+	'State' => '省份',
+	'Region' => '地区',
+	'Status' => '数据状态',
+	'Thumbnail' => '缩略图',
+	'Created At' => '创建时间',
+	'Updated At' => '最后修改',
+
+	// 其他翻译
+	'Create Content' => '新建联盟分部',
+	'Update Content' => '编辑联盟分部信息',
+	'Contents' => '联盟列表',
+	'Recycle' => '回收站',
+	'Update' => '修改',
+	'Create' => '新建',
+	'Delete' => '删除',
+];
