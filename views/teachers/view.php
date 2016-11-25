@@ -6,7 +6,7 @@ use app\models\Contents;
 /* @var $this yii\web\View */
 /* @var $model app\models\Teachers */
 
-$this->title = $model->name;
+$this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/teacher', 'Teachers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'model' => $model,
         'attributes' => [
+            'id',
             [
                 'attribute' => 'cid',
                 'value' => $model->content->name,

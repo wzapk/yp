@@ -143,9 +143,17 @@ class Contents extends \yii\db\ActiveRecord
         return self::find()->select(['state'])->distinct()->where(['status'=>self::STATUS_ACTIVE])->all();
     }
 
+    public static function getStateSum()
+    {
+        $db = self::getDb();
+        $command = $db->createCommand('select state, count(state) as stateCount from '.self::tableName().' where status='.self::STATUS_ACTIVE.' group by state');
+        $results = $command->queryAll();
+        return $results;
+    }
+
     public function getTeachers()
     {
-        return $this->hasMany(Teachers::className(), ['cid' => 'id'])->orderBy('name');
+        return $this->hasMany(Teachers::className(), ['cid' => 'id'])->where(['status'=>Teachers::STATUS_ACTIVE])->orderBy('name');
     }
 
     public function getMap()

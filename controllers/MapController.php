@@ -5,11 +5,18 @@ use yii\web\Controller;
 use yii\helpers\Json;
 use yii\helpers\Html;
 use app\models\Contents;
+use yii\data\ActiveDataProvider;
 
 class MapController extends Controller
 {
 	public function actionIndex()
 	{
+		$dataProvider = new ActiveDataProvider([
+			'query' => Contents::find()->orderBy('updated_at desc'),
+			'pagination' => [
+				'pageSize' => 10,
+			],
+		]);
 		$models = Contents::find()
 			->with('map')
 			->where(['status'=>Contents::STATUS_ACTIVE])
@@ -34,8 +41,9 @@ class MapController extends Controller
 			];
 		}
 		
-		return $this->render('index', [
-			'models' => $models,
+		return $this->render('index-pjax', [
+			'totalCount' => count($models),
+			'dataProvider' => $dataProvider,
 			'markArray' => $markArray,
 		]);
 	}

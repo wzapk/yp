@@ -8,11 +8,13 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Contents;
+use app\models\Teachers;
 use app\models\District;
 use app\models\ResetPasswordForm;
 use app\models\PasswordResetRequestForm;
 use yii\data\Pagination;
 use app\components\detect\BrowserDetect;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -56,7 +58,7 @@ class SiteController extends Controller
         $isMobile = BrowserDetect::is_mobile();
 
         // 根据客户端决定分页数量
-        $pageSize = $isMobile ? 10 : 30;
+        $pageSize = $isMobile ? 20 : 30;
 
         // 按检索条件分页查询数据
         $contents_query = Contents::find()->where(['status'=>Contents::STATUS_ACTIVE])->orderBy('created_at desc');
@@ -107,11 +109,14 @@ class SiteController extends Controller
             $states = District::getStates();
             // 获取已有分部的地区数据
             $contents_states = Contents::getStateNames();
+            $stateSum = Contents::getStateSum();
+            $stateSum = ArrayHelper::map($stateSum, 'state', 'stateCount');
             // 根据上述数据整理地区列表
             $contents_states_list = [];
             foreach ($contents_states as $c) {
-            	$contents_states_list[$c->state] = $states[$c->state];
+            	$contents_states_list[$c->state] = $states[$c->state].' ('.$stateSum[$c->state].')';
             }
+
         }
         // 传递给index页面的数据
         $data = [
@@ -127,13 +132,15 @@ class SiteController extends Controller
             'isMobile' => $isMobile,
             //'contents_states_list' => $contents_states_list,
         ];
+
         if (!$isMobile) {
             // PC端则传递地区列表数据
             $data['contents_states_list'] = $contents_states_list;
         }
-        return $this->render('index', $data);
+        return $this->render('index-table', $data);
     }
 
+    // 显示分部信息
     public function actionView($id)
     {
         $content = Contents::findOne($id);
@@ -144,6 +151,37 @@ class SiteController extends Controller
         } else {
             throw new \yii\web\NotFoundHttpException('未找到分部数据');
         }
+    }
+
+    // 显示教师列表
+    public function actionTeachers()
+    {
+        // 检测客户端是否为移动手机
+        $isMobile = BrowserDetect::is_mobile();
+
+        // 根据客户端决定分页数量
+        $pageSize = $isMobile ? 20 : 30;
+        
+        $query = Teachers::find()->where(['status'=>Teachers::STATUS_ACTIVE])->orderBy('name');
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount'=>$count]);
+        $teachers = $query->limit($pagination->limit)->offset($pagination->offset)->all();
+
+        return $this->render('teachers', [
+            'teachers' => $teachers,
+            'pagination' => $pagination,
+            'isMobile' => $isMobile,
+        ]);
+    }
+
+    // 显示教师详细信息
+    public function actionTeacher($id)
+    {
+        $pagination = new Pagination;
+        $teacher = Teachers::find()->where(['status'=>Teachers::STATUS_ACTIVE, 'id'=>$id])->with('content')->one();
+        return $this->render('teacher', [
+            'teacher' => $teacher,
+        ]);
     }
 
     public function actionLogin()

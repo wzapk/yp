@@ -9,7 +9,7 @@ $fields = [
 	'serial_no',
 	'manager',
 	'business_scope',
-	'state',
+	'location',
 	'address',
 	'phone',
 	'taobao',
@@ -50,16 +50,19 @@ $fields = [
 		<div class="am-list-news-bd">
 		<?php if (count($teachers)): ?>
 			<ul class="am-list">
-			<?php foreach ($teachers as $teacher): ?>
+			<?php foreach ($teachers as $teacher): $content = $teacher->content; ?>
 				<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
 					<div class="am-u-sm-4 am-list-thumb">
-						<?= Html::a('<img src="'.$teacher->avatar.'">', ['/teachers/view', 'id'=>$teacher->id]) ?>
+						<?= Html::a('<img src="'.$teacher->avatar.'">', ['/site/teacher', 'id'=>$teacher->id]) ?>
 					</div>
 					<div class="am-u-sm-8 am-list-main">
 						<h3 class="am-list-item-hd">
-							<?= Html::a($teacher->name, ['/teachers/view', 'id'=>$teacher->id]) ?>
+							<?= Html::a($teacher->name, ['/site/teacher', 'id'=>$teacher->id]) ?>
 						</h3>
-						<div class="am-list-item-text"><?= $teacher->attributeLabels()['phone'] ?>：<?= $teacher->phone ?></div>
+						<div class="am-list-item-text">
+							<?= $teacher->attributeLabels()['serial_no'] ?>：<?= $teacher->id ?> <br>
+							<?= $teacher->attributeLabels()['contact'] ?>：<?= $content->phone ?>
+						</div>
 					</div>
 				</li>
 			<?php endforeach; ?>

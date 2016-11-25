@@ -3,9 +3,10 @@ use app\components\detect\BrowserDetect;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $this->title = '魔菇联盟全国分布图';
-
 ?>
 
 
@@ -15,32 +16,39 @@ $this->title = '魔菇联盟全国分布图';
 	</div>
 	<div class="contents-info">
 		<div class="contents-summary">
-			<h2>目前有<span><?= count($models) ?></span>家联盟，waitting for you!</h2>
+			<h2>目前有<span><?= $totalCount ?></span>家联盟，waitting for you!</h2>
 		</div>
 		<div class="contents-body">
 			<div class="am-list-news am-list-news-default">
 				<div class="am-list-news-hd am-cf">
-					<h2>最新加盟列表</h2>
+					<h2>最新联盟列表</h2>
 				</div>
-				<div class="am-list-news-bd">
-					<ul class="am-list">
-						<?php for ($i=0; $i<10; $i++): ?>
-						<li class="am-g am-list-item-desced">
-							<a href="javascript:;"><?= Html::encode($models[$i]->name) ?></a>
-							<!-- <span class="am-list-date"><?= date('n月j日', $models[$i]->updated_at) ?> -->
-							<div class="am-list-item-text">
-								<?= Html::encode($models[$i]->address) ?>
-							</div>
-						</li>
-						<?php endfor; ?>
-					</ul>
-				</div>
+				
+					<?php Pjax::begin(['options'=>['class'=>'am-list-news-bd']]) ?>
+						<?= ListView::widget([
+							'dataProvider' => $dataProvider,
+							'itemView' => '_listview',
+							'summary' => false,
+							'options' => [
+								'tag' => 'ul',
+								'class' => 'am-list',
+							],
+							'itemOptions' => [
+								'class' => 'am-g am-list-item-desced',
+								'tag' => 'li',
+							],
+							'pager' => [
+								'options' => [
+									'class' => 'am-pagination',
+								],
+							],
+						]) ?>
+					<?php Pjax::end(); ?>
+				
 			</div>
 		</div>
 	</div>
-	<div class="map-footer">
-		<p><a href="http://news.mogu7.com/?cat=203" class="am-btn am-btn-primary">更多分部介绍</a></p>
-	</div>
+	
 </div>
 
 

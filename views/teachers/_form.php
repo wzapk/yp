@@ -56,6 +56,8 @@ $url = Url::to(['/contents/content-list']);
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    
+
 	<div class="well well-small">
     <?= $form->field($model, 'avatar')->widget(FileInput::className(), [
     	'options' => ['accept' => 'image/*', 'multiple' => false],
@@ -94,7 +96,7 @@ $url = Url::to(['/contents/content-list']);
 
     <?= $form->field($model, 'contact')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app/teacher', 'Create') : Yii::t('app/teacher', 'Update'), ['class' => $model->isNewRecord ? 'am-btn am-btn-success' : 'am-btn am-btn-primary']) ?>

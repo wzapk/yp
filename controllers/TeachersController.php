@@ -121,22 +121,26 @@ class TeachersController extends Controller
         $model = new Teachers();
 
         if (Yii::$app->request->post()) {
-            $model->avatar = UploadedFile::getInstance($model, 'avatar');
-            $model->certificate = UploadedFile::getInstance($model, 'certificate');
             $post = Yii::$app->request->post('Teachers');
             $model->cid = $post['cid'];
             $model->name = $post['name'];
-            $model->phone = $post['phone'];
-            $model->contact = $post['contact'];
+            //$model->serial_no = $post['serial_no'];
+            //$model->contact = $post['contact'];
             if ($model->validate()) {
-                $avatarFilename = uniqid().'-'.date('YmdHis').'.'.$model->avatar->extension;
-                $certificateFilename = uniqid().'-'.date('YmdHis').'.'.$model->certificate->extension;
-                $dir = $this->uploadAvatarPath . '/' . $avatarFilename;
-                $model->avatar->saveAs($dir);
-                $model->avatar = $this->avatarUrl .'/'.$avatarFilename;
-                $dir = $this->uploadCertificatePath . '/' . $certificateFilename;
-                $model->certificate->saveAs($dir);
-                $model->certificate = $this->certificateUrl . '/' . $certificateFilename;
+                if (UploadedFile::getInstance($model, 'avatar')) {
+                    $model->avatar = UploadedFile::getInstance($model, 'avatar');
+                    $avatarFilename = uniqid().'-'.date('YmdHis').'.'.$model->avatar->extension;
+                    $dir = $this->uploadAvatarPath . '/' . $avatarFilename;
+                    $model->avatar->saveAs($dir);
+                    $model->avatar = $this->avatarUrl .'/'.$avatarFilename;
+                }
+                if (UploadedFile::getInstance($model, 'certificate')) {
+                    $model->certificate = UploadedFile::getInstance($model, 'certificate');
+                    $certificateFilename = uniqid().'-'.date('YmdHis').'.'.$model->certificate->extension;
+                    $dir = $this->uploadCertificatePath . '/' . $certificateFilename;
+                    $model->certificate->saveAs($dir);
+                    $model->certificate = $this->certificateUrl . '/' . $certificateFilename;
+                }
                 if ($model->save()) {
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -159,22 +163,26 @@ class TeachersController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->request->post()) {
-            $model->avatar = UploadedFile::getInstance($model, 'avatar');
-            $model->certificate = UploadedFile::getInstance($model, 'certificate');
             $post = Yii::$app->request->post('Teachers');
             $model->cid = $post['cid'];
             $model->name = $post['name'];
-            $model->phone = $post['phone'];
-            $model->contact = $post['contact'];
+            //$model->serial_no = $post['serial_no'];
+            //$model->contact = $post['contact'];
             if ($model->validate()) {
-                $avatarFilename = uniqid().'-'.date('YmdHis').'.'.$model->avatar->extension;
-                $certificateFilename = uniqid().'-'.date('YmdHis').'.'.$model->certificate->extension;
-                $dir = $this->uploadAvatarPath . '/' . $avatarFilename;
-                $model->avatar->saveAs($dir);
-                $model->avatar = $this->avatarUrl .'/'.$avatarFilename;
-                $dir = $this->uploadCertificatePath . '/' . $certificateFilename;
-                $model->certificate->saveAs($dir);
-                $model->certificate = $this->certificateUrl . '/' . $certificateFilename;
+                if (UploadedFile::getInstance($model, 'avatar')) {
+                    $model->avatar = UploadedFile::getInstance($model, 'avatar');
+                    $avatarFilename = uniqid().'-'.date('YmdHis').'.'.$model->avatar->extension;
+                    $dir = $this->uploadAvatarPath . '/' . $avatarFilename;
+                    $model->avatar->saveAs($dir);
+                    $model->avatar = $this->avatarUrl .'/'.$avatarFilename;
+                }
+                if (UploadedFile::getInstance($model, 'certificate')) {
+                    $model->certificate = UploadedFile::getInstance($model, 'certificate');
+                    $certificateFilename = uniqid().'-'.date('YmdHis').'.'.$model->certificate->extension;
+                    $dir = $this->uploadCertificatePath . '/' . $certificateFilename;
+                    $model->certificate->saveAs($dir);
+                    $model->certificate = $this->certificateUrl . '/' . $certificateFilename;
+                }
                 if ($model->save()) {
                     return $this->redirect(['view', 'id' => $model->id]);
                 }

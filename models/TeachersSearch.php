@@ -19,7 +19,7 @@ class TeachersSearch extends Teachers
     {
         return [
             [['id', 'cid', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'avatar', 'certificate', 'contact', 'phone'], 'safe'],
+            [['name', 'avatar', 'certificate', 'contact', 'phone', 'serial_no'], 'safe'],
         ];
     }
 
@@ -70,7 +70,8 @@ class TeachersSearch extends Teachers
             ->andFilterWhere(['like', 'avatar', $this->avatar])
             ->andFilterWhere(['like', 'certificate', $this->certificate])
             ->andFilterWhere(['like', 'contact', $this->contact])
-            ->andFilterWhere(['like', 'phone', $this->phone]);
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'serial_no', $this->serial_no]);
 
         return $dataProvider;
     }

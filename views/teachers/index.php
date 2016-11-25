@@ -50,11 +50,11 @@ $attributeLabels = Teachers::attributeLabels();
                         <tr>
                             <th class="check-column"><input type="checkbox" id="action_data_select_all"></th>
                             <th>&nbsp;</th>
+                            <th><?= $attributeLabels['id'] ?></th>
                             <th><?= $attributeLabels['cid'] ?></th>
                             <th><?= $attributeLabels['name'] ?></th>
                             <th><?= $attributeLabels['avatar'] ?></th>
                             <th><?= $attributeLabels['certificate'] ?></th>
-                            <th><?= $attributeLabels['phone'] ?></th>
                             <th><?= $attributeLabels['created_at'] ?></th>
                         </tr>
                     </thead>
@@ -66,12 +66,12 @@ $attributeLabels = Teachers::attributeLabels();
                             <td class="action-column">
                                 <a href="<?= Url::to(['update', 'id'=>$teacher->id]) ?>"><?= Yii::t('app', 'Edit') ?></a> | <a href="<?= Url::to(['trash', 'id'=>$teacher->id]) ?>"><?= Yii::t('app', 'Trash') ?></a>
                             </td>
+                            <td><?= Html::encode($teacher->id) ?></td>
                             <td><?= Html::encode($teacher->content->name) ?></td>
                             <td><?= Html::encode($teacher->name) ?></td>
                             <td><?= !empty($teacher->avatar) ? '<img src="'.$teacher->avatar.'" width="80" height="80">' : '' ?></td>
                             <td><?= !empty($teacher->certificate) ? '<img src="'.$teacher->certificate.'" width="80" height="80">' : '' ?></td>
-                            <td><?= Html::encode($teacher->phone) ?></td>
-
+                            
                             <td><?= date('Y-m-d', $teacher->created_at) ?></td>
                         </tr>
                         <?php endforeach; else: ?>
@@ -107,11 +107,13 @@ $attributeLabels = Teachers::attributeLabels();
                     <tr>
                         <th class="check-column"><input type="checkbox" id="action_trash_select_all"></th>
                         <th class="action-column">&nbsp;</th>
+                        <th><?= $attributeLabels['id'] ?></th>
                         <th><?= $attributeLabels['cid'] ?></th>
+
                             <th><?= $attributeLabels['name'] ?></th>
                             <th><?= $attributeLabels['avatar'] ?></th>
                             <th><?= $attributeLabels['certificate'] ?></th>
-                            <th><?= $attributeLabels['phone'] ?></th>
+                            
                             <th><?= $attributeLabels['created_at'] ?></th>
                     </tr>
                 </thead>
@@ -123,11 +125,12 @@ $attributeLabels = Teachers::attributeLabels();
                         <td class="action-column">
                             <a href="<?= Url::to(['untrash', 'id'=>$teacher->id]) ?>"><?= Yii::t('app', 'Untrash') ?></a> | <a href="<?= Url::to(['delete', 'id'=>$teacher->id]) ?>"><?= Yii::t('app', 'Delete') ?></a>
                         </td>
+                        <td><?= Html::encode($teacher->id) ?></td>
                         <td><?= Html::encode($teacher->content->name) ?></td>
                             <td><?= Html::encode($teacher->name) ?></td>
                             <td><?= !empty($teacher->avatar) ? '<img src="'.$teacher->avatar.'" width="80" height="80">' : '' ?></td>
                             <td><?= !empty($teacher->certificate) ? '<img src="'.$teacher->certificate.'" width="80" height="80">' : '' ?></td>
-                            <td><?= Html::encode($teacher->phone) ?></td>
+                            
                         <td><?= date('Y-m-d', $teacher->created_at) ?></td>
                     </tr>
                     <?php endforeach; else: ?>

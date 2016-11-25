@@ -13,6 +13,29 @@ $this->title = Html::encode(Yii::$app->name);
 if (!isset($isMobile)) {
 	$isMobile = BrowserDetect::is_mobile();
 }
+
+$fields = [
+    'serial_no' => [
+        'style' => 'width:20%',
+    ],
+    'name' => [
+        'class' => 'am-text-primary',
+    ],
+    'manager' => [
+        'style' => 'width:10%',
+        
+    ],
+    //'business_scope',
+    //'state',
+    'location' => ['style' => 'width:20%',],
+    //'address',
+    'phone' => ['style' => 'width:15%',],
+    //'taobao',
+    //'homepage',
+    //'weibo',
+    //'weixin',
+    //'qq',
+];
 ?>
 
 <?php if (!$isMobile): ?>
@@ -63,39 +86,27 @@ if (!isset($isMobile)) {
 	</form>
 <?php endif; ?>
 
-<?php if (!$isMobile): ?><ul class="am-avg-sm-2 am-avg-md-3 am-thumbnails"><?php endif; ?>
+<div class="am-scrollable-horizontal" style="color:#444;cursor:pointer">
+
+    <table id="contents-table" class="am-table am-table-striped am-table-hover <?= $isMobile ? 'am-text-nowrap': '' ?>">
+        <thead>
+            <tr><?php $c = new Contents; foreach ($fields as $field => $opt): ?>
+                <th <?= isset($opt['style']) ? 'style="'.$opt['style'].'"' : '' ?>><?= $c->getAttributeLabel($field) ?></th>
+                <?php endforeach; unset($c); ?>
+            </tr>
+        </thead>
+        <tbody>
 <?php foreach ($contents as $con): $teachers = $con->teachers; ?>
 
-    <?= !$isMobile ? '<li>' : '' ?>
-
-    	<div class="am-intro am-cf am-intro-default">
-    		<div class="am-intro-bd">
-    			
-    			<div class="">
-    				<h4 style="color:#00d;"><?= Html::a($con->name, ['/site/view', 'id'=>$con->id]) ?></h4>
-    				<p>
-    					<?= $con->getAttributeLabel('serial_no') ?>: <span><?= Html::encode($con->serial_no) ?></span><br>
-    					<?= $con->getAttributeLabel('manager') ?>: <span><?= Html::encode($con->manager) ?></span><br>
-    					<?= $con->getAttributeLabel('business_scope') ?>: <span><?= Html::encode($con->business_scope) ?></span><br>
-    					<?= $con->getAttributeLabel('location') ?>: <span><?= Html::encode($con->location) ?></span><br>
-    					<?= $con->getAttributeLabel('address') ?>: <span><?= Html::encode($con->address) ?></span><br>
-    					<?= $con->getAttributeLabel('phone') ?>: <span><?= Html::encode($con->phone) ?></span><br>
-                        <?= $con->getAttributeLabel('taobao') ?>: <span><?= empty($con->taobao) ? '':Html::a('点击访问',Html::encode($con->taobao)) ?></span><br>
-                        <?= $con->getAttributeLabel('homepage') ?>: <span><?= empty($con->taobao) ? '':Html::a('点击访问',Html::encode($con->homepage)) ?></span><br>
-    					<?= $con->getAttributeLabel('weibo') ?>: <span><?= empty($con->weibo) ? '' : Html::a(Html::encode($con->weibo),Html::encode($con->weibo)) ?></span><br>
-    					<?= $con->getAttributeLabel('weixin') ?>: <span><?= Html::encode($con->weixin) ?></span><br>
-    					<?= $con->getAttributeLabel('qq') ?>: <span><?= Html::encode($con->qq) ?></span><br>
-                        认证教师: <span><?php foreach($teachers as $teacher) { echo Html::a($teacher->name, ['/site/teacher', 'id'=>$teacher->id], ['style'=>'margin-right:10px']); } ?></span>
-    				</p>
-    			</div>
-    		</div>
-    	</div>
+    	<tr aria-data-url="<?= Url::to(['/site/view', 'id'=>$con->id]) ?>"><?php foreach ($fields as $field => $opt): ?>
+            <td <?= isset($opt['class']) ? 'class="'.$opt['class'].'"' : '' ?>><?= Html::encode($con->$field) ?></td>
+    		<?php endforeach; ?>
+    	</tr>
     	
-    <?= !$isMobile ? '</li>' : '' ?>
+
 <?php endforeach; ?>
-<?php if (!$isMobile): ?>
-	</ul>
-<?php endif; ?>
+        </tbody>
+    </table>
 
 </div>
 
@@ -109,6 +120,7 @@ if (!isset($isMobile)) {
 	?>
 
 	<?= LinkPager::widget(['pagination' => $pagination, 'options' => $options]) ?>
+
 </div>
 
 <?php if (!$isMobile): ?>
@@ -141,3 +153,10 @@ if (!isset($isMobile)) {
 $this->registerJs($js);
 ?>
 <?php endif; ?>
+<?php
+$this->registerJs("
+    $('#contents-table tr').on('click', function() {
+        var url = $(this).attr('aria-data-url');
+        window.location = url;
+    })
+");

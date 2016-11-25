@@ -10,6 +10,7 @@ use yii\db\Expression;
  * This is the model class for table "{{%teachers}}".
  *
  * @property integer $id
+ * @property string $serial_no
  * @property integer $cid
  * @property string $name
  * @property string $avatar
@@ -55,7 +56,7 @@ class Teachers extends \yii\db\ActiveRecord
         return [
             [['cid', 'status', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'required'],
-            [['name', 'contact', 'phone'], 'string', 'max' => 255],
+            [['name', 'contact', 'phone', 'serial_no'], 'string', 'max' => 255],
             [['avatar', 'certificate'], 'file'],
             [['cid'], 'exist', 'skipOnError' => true, 'targetClass' => Contents::className(), 'targetAttribute' => ['cid' => 'id']],
         ];
@@ -69,6 +70,7 @@ class Teachers extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app/teacher', 'ID'),
             'cid' => Yii::t('app/teacher', 'Cid'),
+            'serial_no' => Yii::t('app/teacher', 'Serial No'),
             'name' => Yii::t('app/teacher', 'Name'),
             'avatar' => Yii::t('app/teacher', 'Avatar'),
             'certificate' => Yii::t('app/teacher', 'Certificate'),

@@ -1,6 +1,6 @@
 <?php
 return [
-	'Cid' => '分部',
+	'Cid' => '所属分部',
 	'Name' => '教师名称',
 	'Avatar' => '照片',
 	'Certificate' => '认证书',
@@ -9,6 +9,7 @@ return [
 	'Status' => '数据状态',
 	'Created At' => '创建时间',
 	'Updated At' => '更新时间',
+	'Serial No' => '教师编号',
 
 	'Teachers' => '教师列表',
 	'Create Teachers' => '添加教师',
@@ -19,4 +20,6 @@ return [
 
 	'No file selected' => '未选择文件',
 	'Select Photo' => '选择一张图片',
+	'Update Teachers: ' => '修改教师资料：',
+	'Create Teachers' => '新建认证教师',
 ];
