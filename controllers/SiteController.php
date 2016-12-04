@@ -16,8 +16,9 @@ use yii\data\Pagination;
 use app\components\detect\BrowserDetect;
 use yii\helpers\ArrayHelper;
 
-class SiteController extends Controller
+class SiteController extends FrontendController
 {
+
     public function behaviors()
     {
         return [
@@ -32,14 +33,14 @@ class SiteController extends Controller
                     ],
                 ],
             ],
-            /*
+            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
             ],
-            */
+            
         ];
     }
 
@@ -186,6 +187,7 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        $this->layout = '//main-login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

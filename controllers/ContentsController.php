@@ -13,9 +13,9 @@ use yii\helpers\Url;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 
-class ContentsController extends Controller
+class ContentsController extends BackendController
 {
-
+	/*
 	public function behaviors()
 	{
 		return [
@@ -34,6 +34,7 @@ class ContentsController extends Controller
 			],
 		];
 	}
+	*/
 
 	public function actionIndex()
 	{

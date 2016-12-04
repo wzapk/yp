@@ -16,7 +16,7 @@ use yii\data\Pagination;
 /**
  * TeachersController implements the CRUD actions for Teachers model.
  */
-class TeachersController extends Controller
+class TeachersController extends BackendController
 {
     protected $uploadAvatarPath;
     protected $uploadCertificatePath;

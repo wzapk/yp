@@ -89,4 +89,9 @@ class Teachers extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Contents::className(), ['id' => 'cid']);
     }
+
+    public static function getLast($limit = 10)
+    {
+        return self::find()->orderBy('created_at desc')->limit($limit)->where(['status'=>self::STATUS_ACTIVE])->all();
+    }
 }

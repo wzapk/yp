@@ -9,7 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 
-class SystemController extends Controller
+class SystemController extends BackendController
 {
 	public function behaviors()
 	{

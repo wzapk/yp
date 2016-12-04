@@ -3,13 +3,11 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
 use app\models\Contents;
 use app\models\User;
+use app\models\Teachers;
 
-class MController extends Controller
+class MController extends BackendController
 {
 
 	public function actionIndex()
@@ -18,15 +16,22 @@ class MController extends Controller
 		$deactive_contents_count = Contents::find()->where(['status'=>Contents::STATUS_DELETED])->count();
 		$active_users_count = User::find()->where(['status'=>User::STATUS_ACTIVE])->count();
 		$deactive_users_count = User::find()->where(['status'=>User::STATUS_DELETED])->count();
+		$active_teachers_count = Teachers::find()->where(['status'=>Teachers::STATUS_ACTIVE])->count();
+		$deactive_teachers_count = Teachers::find()->where(['status'=>Teachers::STATUS_DELETED])->count();
 		$last_contents = Contents::getLast(5);
 		$last_users = User::getLast(5);
-		return $this->render('index', [
+		$last_teachers = Teachers::getLast(5);
+
+		return $this->render('index-adminlte', [
 			'active_contents_count' => $active_contents_count,
 			'deactive_contents_count' => $deactive_contents_count,
 			'active_users_count' => $active_users_count,
 			'deactive_users_count' => $deactive_users_count,
+			'active_teachers_count' => $active_teachers_count,
+			'deactive_teachers_count' => $deactive_teachers_count,
 			'last_contents' => $last_contents,
 			'last_users' => $last_users,
+			'last_teachers' => $last_teachers,
 		]);
 	}
 

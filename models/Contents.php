@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-use yii\behaviors\UploadBehavior;
 /**
  * This is the model class for table "contents".
  *
@@ -46,18 +45,6 @@ class Contents extends \yii\db\ActiveRecord
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new Expression('unix_timestamp()'),
-            ],
-            [
-                'class' => UploadBehavior::className(),
-                'attributes' => [
-                    [
-                        'attribute' => 'thumbnail',
-                        'path' => self::THUMBNAIL_PATH,
-                        'url' => self::THUMBNAIL_URL,
-                        'generateNewName' => function($file){ return date('YmdHis').uniqid().'.'.$file->extension;},
-                        'scenarios' => ['insert', 'update'],
-                    ],
-                ],
             ],
         ];
     }
@@ -126,16 +113,6 @@ class Contents extends \yii\db\ActiveRecord
     public static function getLast($limit = 5)
     {
         return self::find()->orderBy('created_at desc')->limit($limit)->where(['status'=>self::STATUS_ACTIVE])->all();
-    }
-
-    public static function getThumbnailPath()
-    {
-        return Yii::getAlias(self::THUMBNAIL_PATH);
-    }
-
-    public static function getThumbnailUrl()
-    {
-        return Yii::getAlias(self::THUMBNAIL_URL);
     }
 
     public static function getStateNames()

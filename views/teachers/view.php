@@ -3,13 +3,17 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Contents;
+use app\components\fancyBox\FancyBoxBundle;
 /* @var $this yii\web\View */
 /* @var $model app\models\Teachers */
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/teacher', 'Teachers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+FancyBoxBundle::register($this);
 ?>
+
 <div class="teachers-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -38,23 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'avatar',
-                'format' => [
-                    'image',
-                    [
-                        'width' => 84,
-                        'height' => 84,
-                    ]
-                ]
+                'value' => Html::a('<img src="'.$model->avatar.'" style="max-height:84px;width:auto">', $model->avatar, ['class'=>'avatar-fancybox']),
+                'format' => 'raw',
             ],
             [
                 'attribute' => 'certificate',
-                'format' => [
-                    'image',
-                    [
-                        'width' => 84,
-                        'height' => 84,
-                    ]
-                ]
+                'value' => Html::a('<img src="'.$model->certificate.'" style="max-height:84px;width:auto">', $model->certificate, ['class'=>'certificate-fancybox']),
+                'format' => 'raw',
             ],
             'contact',
             'phone',
@@ -62,3 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+<?php
+$this->registerJs("
+
+    $('.avatar-fancybox').fancybox();
+    $('.certificate-fancybox').fancybox();
+
+");

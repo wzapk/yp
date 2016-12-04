@@ -6,4 +6,5 @@ return [
 	'Description' => '描述',
 
 	'Options' => '系统设置',
+	'Files' => '上传管理',
 ];

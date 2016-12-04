@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 use app\models\Options;
 ?>
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
@@ -78,7 +79,7 @@ use app\models\Options;
                 <div class="am-panel-bd">
                     <ul class="sidebar-menu">
                         <li>
-                        	<?= Html::a('Dashboard',['/m/index']) ?>
+                        	<?= Html::a('仪表盘',['/m/index']) ?>
                         </li>
                         <?php if (Yii::$app->user->can('admin')): ?>
                             <li><?= Html::a('用户管理',['/user/index']) ?></li>

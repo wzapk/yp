@@ -7,8 +7,9 @@ use yii\helpers\Html;
 use app\models\Contents;
 use yii\data\ActiveDataProvider;
 
-class MapController extends Controller
+class MapController extends FrontendController
 {
+
 	public function actionIndex()
 	{
 		$dataProvider = new ActiveDataProvider([

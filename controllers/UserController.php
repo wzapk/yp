@@ -7,9 +7,9 @@ use app\models\User;
 use yii\web\Controller;
 use yii\data\Pagination;
 
-class UserController extends Controller
+class UserController extends BackendController
 {
-
+	/*
 	public function behaviors()
 	{
 		return [
@@ -26,6 +26,7 @@ class UserController extends Controller
 			],
 		];
 	}
+	*/
 
 	public function actionIndex()
 	{
@@ -93,7 +94,7 @@ class UserController extends Controller
 				// 转到用户管理首页
 				return $this->redirect(['index']);
 			}
-		}
+		} 
 		return $this->render('create', [
 			'model' => $model,
 		]);

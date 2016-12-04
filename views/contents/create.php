@@ -8,7 +8,7 @@ $this->params['breadcrumbs'] = [
 
 ?>
 
-<h2><?= $this->title ?></h2>
+
 <?= $this->render('_form', [
 	'model' => $model,
 ]) ?>

@@ -8,6 +8,12 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+    	'admin' => [
+    		'class' => 'mdm\admin\Module',
+    		'layout' => '//backend/main',
+    	],
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
@@ -112,7 +118,24 @@ $config = [
                 'request-password-reset' => 'site/request-password-reset',
             ],
         ],
-        
+        /*
+        // yii2-adminlte模板
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                ],
+            ],
+        ],
+        */
+    ], // end of components
+    'as access' => [
+    	'class' => 'mdm\admin\components\AccessControl',
+    	'allowActions' => [
+    		'site/*',
+    		'admin/*',
+    		'm/*',
+    	],
     ],
     'params' => $params,
 ];
@@ -129,6 +152,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
     ];
     $config['components']['db'] = require(__DIR__ . '/db-local.php');
+    unset($config['components']['urlManager']);
 }
 
 return $config;

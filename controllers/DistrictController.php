@@ -8,7 +8,7 @@ use app\models\DistrictUploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 
-class DistrictController extends Controller
+class DistrictController extends BackendController
 {
 
 	public function actionState()

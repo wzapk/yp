@@ -6,9 +6,10 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use app\models\Contents;
 
+$this->title = '分部管理';
 $this->params['breadcrumbs'] = [
 	['label' => '后台首页', 'url' => ['/m/index']],
-	'分部管理',
+	$this->title,
 ];
 
 $attributeLabels = Contents::attributeLabels();
